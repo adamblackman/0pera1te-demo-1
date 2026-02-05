@@ -20,7 +20,7 @@ const availableChips: Chip[] = [
   { id: 'summarize', label: 'Summarize', icon: FileText, color: '#6366f1' },
 ];
 
-export function BuildStrip({ onLog }: { onLog?: (msg: string) => void }) {
+export function BuilderStrip({ onLog }: { onLog?: (msg: string) => void }) {
   const { isChaos } = useTheme();
   const [workflow, setWorkflow] = useState<Chip[]>([]);
   const [dragOver, setDragOver] = useState(false);
