@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useInView } from '../hooks/useInView';
 import { MessageSquare, Cpu, Rocket, ChevronRight, Check } from 'lucide-react';
+import { BuilderStrip } from "./BuilderStrip";
 
 const steps = [
   {
@@ -112,6 +113,7 @@ export function HowItWorks() {
             How It Works
           </h2>
         </div>
+        <BuilderStrip />
 
         <div
           ref={containerRef}
