@@ -51,8 +51,7 @@ export function StatusLEDs({ onLog }: { onLog?: (msg: string) => void }) {
             item={item}
             isChaos={isChaos}
           />
-        ))}
-      </div>
+        ))}\n      </div>
 
       <div
         className="flex items-center justify-between text-xs px-3 py-2 rounded-xl"
