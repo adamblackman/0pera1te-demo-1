@@ -1,5 +1,4 @@
 import { useState, useCallback, DragEvent } from 'react';
-import { useTheme } from '../context/ThemeContext';
 import { Mail, FileSpreadsheet, Users, MessageSquare, Globe, Tag, GitBranch, FileText, X, ChevronRight } from 'lucide-react';
 
 interface Chip {
@@ -21,7 +20,7 @@ const availableChips: Chip[] = [
 ];
 
 export function BuildStrip({ onLog }: { onLog?: (msg: string) => void }) {
-  const { isChaos } = useTheme();
+  const isChaos = false;
   const [workflow, setWorkflow] = useState<Chip[]>([]);
   const [dragOver, setDragOver] = useState(false);
   const [draggingChip, setDraggingChip] = useState<string | null>(null);
@@ -59,9 +58,9 @@ export function BuildStrip({ onLog }: { onLog?: (msg: string) => void }) {
   }, [onLog]);
 
   return (
-    <div className="panel p-6 space-y-4">
+    <div className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4 backdrop-blur-sm mt-8">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-ivory-400">
           Build Strip
         </h3>
         {workflow.length > 0 && (
@@ -94,15 +93,11 @@ export function BuildStrip({ onLog }: { onLog?: (msg: string) => void }) {
         className={`
           min-h-[80px] rounded-2xl border-2 border-dashed p-4 transition-all
           flex items-center gap-2 overflow-x-auto scrollbar-hide
-          ${dragOver ? 'scale-[1.02]' : ''}
+          ${dragOver ? 'scale-[1.02] border-accent bg-white/5' : 'border-white/10 bg-transparent'}
         `}
-        style={{
-          borderColor: dragOver ? 'var(--accent-1)' : 'var(--bg-accent)',
-          background: dragOver ? 'var(--bg-accent)' : 'transparent'
-        }}
       >
         {workflow.length === 0 ? (
-          <span className="text-sm w-full text-center" style={{ color: 'var(--text-secondary)' }}>
+          <span className="text-sm w-full text-center text-ivory-400">
             Drop chips here to build
           </span>
         ) : (
@@ -115,8 +110,7 @@ export function BuildStrip({ onLog }: { onLog?: (msg: string) => void }) {
               />
               {index < workflow.length - 1 && (
                 <ChevronRight
-                  className={`w-4 h-4 mx-1 flex-shrink-0 ${isChaos ? 'animate-pulse' : ''}`}
-                  style={{ color: 'var(--accent-1)' }}
+                  className={`w-4 h-4 mx-1 flex-shrink-0 text-accent ${isChaos ? 'animate-pulse' : ''}`}
                 />
               )}
             </div>
@@ -126,8 +120,7 @@ export function BuildStrip({ onLog }: { onLog?: (msg: string) => void }) {
 
       {workflow.length > 0 && (
         <div
-          className="text-xs text-center py-2 rounded-lg"
-          style={{ background: 'var(--bg-accent)', color: 'var(--text-secondary)' }}
+          className="text-xs text-center py-2 rounded-lg bg-white/5 text-ivory-400"
         >
           {workflow.length} step{workflow.length > 1 ? 's' : ''} configured
         </div>
