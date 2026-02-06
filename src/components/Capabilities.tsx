@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { useInView } from '../hooks/useInView';
 import { Bot, Workflow, Database, Zap } from 'lucide-react';
+import { BuildStrip } from './BuildStrip';
 
 const capabilities = [
   {
@@ -139,6 +140,7 @@ export function Capabilities() {
             />
           ))}
         </div>
+        <BuildStrip />
       </div>
     </section>
   );
