@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { useInView } from '../hooks/useInView';
 import { Bot, Workflow, Database, Zap } from 'lucide-react';
+import { BuildStrip } from './BuildStrip';
 
 const capabilities = [
   {
@@ -120,6 +121,7 @@ export function Capabilities() {
           >
             What We Build
           </h2>
+          <BuildStrip />
           <p
             className={`text-lg text-ivory-400 max-w-2xl mx-auto transition-all duration-700 delay-200 ${
               isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
