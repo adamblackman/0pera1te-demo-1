@@ -1,6 +1,6 @@
-import { useState, useCallback, DragEvent } from 'react';
-import { useTheme } from '../context/ThemeContext';
-import { Mail, FileSpreadsheet, Users, MessageSquare, Globe, Tag, GitBranch, FileText, X, ChevronRight } from 'lucide-react';
+import { useState, useCallback, DragEvent } from "react";
+import { useTheme } from "../context/ThemeContext";
+import { Mail, FileSpreadsheet, Users, MessageSquare, Globe, Tag, GitBranch, FileText, X, ChevronRight } from "lucide-react";
 
 interface Chip {
   id: string;
@@ -10,24 +10,24 @@ interface Chip {
 }
 
 const availableChips: Chip[] = [
-  { id: 'email', label: 'Email', icon: Mail, color: '#06b6d4' },
-  { id: 'sheets', label: 'Sheets', icon: FileSpreadsheet, color: '#10b981' },
-  { id: 'crm', label: 'CRM', icon: Users, color: '#8b5cf6' },
-  { id: 'slack', label: 'Slack', icon: MessageSquare, color: '#f59e0b' },
-  { id: 'scrape', label: 'Scrape', icon: Globe, color: '#ef4444' },
-  { id: 'classify', label: 'Classify', icon: Tag, color: '#ec4899' },
-  { id: 'route', label: 'Route', icon: GitBranch, color: '#14b8a6' },
-  { id: 'summarize', label: 'Summarize', icon: FileText, color: '#6366f1' },
+  { id: "email", label: "Email", icon: Mail, color: "#06b6d4" },
+  { id: "sheets", label: "Sheets", icon: FileSpreadsheet, color: "#10b981" },
+  { id: "crm", label: "CRM", icon: Users, color: "#8b5cf6" },
+  { id: "slack", label: "Slack", icon: MessageSquare, color: "#f59e0b" },
+  { id: "scrape", label: "Scrape", icon: Globe, color: "#ef4444" },
+  { id: "classify", label: "Classify", icon: Tag, color: "#ec4899" },
+  { id: "route", label: "Route", icon: GitBranch, color: "#14b8a6" },
+  { id: "summarize", label: "Summarize", icon: FileText, color: "#6366f1" },
 ];
 
-export function BuildStrip({ onLog }: { onLog?: (msg: string) => void }) {
+export function BuildStrip() {
   const { isChaos } = useTheme();
   const [workflow, setWorkflow] = useState<Chip[]>([]);
   const [dragOver, setDragOver] = useState(false);
   const [draggingChip, setDraggingChip] = useState<string | null>(null);
 
   const handleDragStart = useCallback((e: DragEvent, chip: Chip) => {
-    e.dataTransfer.setData('chipId', chip.id);
+    e.dataTransfer.setData("chipId", chip.id);
     setDraggingChip(chip.id);
   }, []);
 
@@ -38,30 +38,27 @@ export function BuildStrip({ onLog }: { onLog?: (msg: string) => void }) {
   const handleDrop = useCallback((e: DragEvent) => {
     e.preventDefault();
     setDragOver(false);
-    const chipId = e.dataTransfer.getData('chipId');
+    const chipId = e.dataTransfer.getData("chipId");
     if (chipId) {
       const chip = availableChips.find(c => c.id === chipId);
       if (chip) {
         setWorkflow(prev => [...prev, { ...chip, id: `${chip.id}-${Date.now()}` }]);
-        onLog?.(`Added ${chip.label} to workflow`);
       }
     }
-  }, [onLog]);
+  }, []);
 
-  const handleRemove = useCallback((id: string, label: string) => {
+  const handleRemove = useCallback((id: string) => {
     setWorkflow(prev => prev.filter(c => c.id !== id));
-    onLog?.(`Removed ${label} from workflow`);
-  }, [onLog]);
+  }, []);
 
   const handleClear = useCallback(() => {
     setWorkflow([]);
-    onLog?.('Workflow cleared');
-  }, [onLog]);
+  }, []);
 
   return (
-    <div className="panel p-6 space-y-4">
+    <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-400">
           Build Strip
         </h3>
         {workflow.length > 0 && (
@@ -93,16 +90,12 @@ export function BuildStrip({ onLog }: { onLog?: (msg: string) => void }) {
         onDrop={handleDrop}
         className={`
           min-h-[80px] rounded-2xl border-2 border-dashed p-4 transition-all
-          flex items-center gap-2 overflow-x-auto scrollbar-hide
-          ${dragOver ? 'scale-[1.02]' : ''}
+          flex items-center gap-2 overflow-x-auto
+          ${dragOver ? "scale-[1.02] border-cyan-500 bg-neutral-800" : "border-neutral-800 bg-transparent"}
         `}
-        style={{
-          borderColor: dragOver ? 'var(--accent-1)' : 'var(--bg-accent)',
-          background: dragOver ? 'var(--bg-accent)' : 'transparent'
-        }}
       >
         {workflow.length === 0 ? (
-          <span className="text-sm w-full text-center" style={{ color: 'var(--text-secondary)' }}>
+          <span className="text-sm w-full text-center text-neutral-400">
             Drop chips here to build
           </span>
         ) : (
@@ -110,13 +103,12 @@ export function BuildStrip({ onLog }: { onLog?: (msg: string) => void }) {
             <div key={chip.id} className="flex items-center">
               <WorkflowChip
                 chip={chip}
-                onRemove={() => handleRemove(chip.id, chip.label)}
+                onRemove={() => handleRemove(chip.id)}
                 isChaos={isChaos}
               />
               {index < workflow.length - 1 && (
                 <ChevronRight
-                  className={`w-4 h-4 mx-1 flex-shrink-0 ${isChaos ? 'animate-pulse' : ''}`}
-                  style={{ color: 'var(--accent-1)' }}
+                  className={`w-4 h-4 mx-1 flex-shrink-0 text-cyan-500 ${isChaos ? "animate-pulse" : ""}`}
                 />
               )}
             </div>
@@ -126,10 +118,9 @@ export function BuildStrip({ onLog }: { onLog?: (msg: string) => void }) {
 
       {workflow.length > 0 && (
         <div
-          className="text-xs text-center py-2 rounded-lg"
-          style={{ background: 'var(--bg-accent)', color: 'var(--text-secondary)' }}
+          className="text-xs text-center py-2 rounded-lg bg-neutral-800 text-neutral-400"
         >
-          {workflow.length} step{workflow.length > 1 ? 's' : ''} configured
+          {workflow.length} step{workflow.length > 1 ? "s" : ""} configured
         </div>
       )}
     </div>
@@ -159,8 +150,8 @@ function DraggableChip({
       className={`
         flex items-center gap-2 px-3 py-2 rounded-xl cursor-grab active:cursor-grabbing
         transition-all hover:scale-105 select-none
-        ${isDragging ? 'opacity-50 scale-95' : ''}
-        ${isChaos ? 'hover:rotate-2' : ''}
+        ${isDragging ? "opacity-50 scale-95" : ""}
+        ${isChaos ? "hover:rotate-2" : ""}
       `}
       style={{
         background: `${chip.color}20`,
@@ -191,7 +182,7 @@ function WorkflowChip({
       className={`
         flex items-center gap-2 px-3 py-2 rounded-xl flex-shrink-0
         transition-all group animate-float
-        ${isChaos ? 'hover:rotate-3' : ''}
+        ${isChaos ? "hover:rotate-3" : ""}
       `}
       style={{
         background: chip.color,
