@@ -1,6 +1,7 @@
-import { useRef, useEffect, useState } from 'react';
-import { ParticleField } from './ParticleField';
-import { ArrowRight } from 'lucide-react';
+import { useRef, useEffect, useState } from "react";
+import { ParticleField } from "./ParticleField";
+import { ArrowRight } from "lucide-react";
+import { LaunchDemoModal } from "./LaunchDemoModal";
 
 export function Hero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -29,8 +30,8 @@ export function Hero() {
 
     const hero = heroRef.current;
     if (hero) {
-      hero.addEventListener('mousemove', handleMouseMove);
-      return () => hero.removeEventListener('mousemove', handleMouseMove);
+      hero.addEventListener("mousemove", handleMouseMove);
+      return () => hero.removeEventListener("mousemove", handleMouseMove);
     }
   }, []);
 
@@ -53,7 +54,7 @@ export function Hero() {
           className="absolute inset-0"
           style={{
             backgroundImage: `radial-gradient(rgba(0, 212, 170, 0.15) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px',
+            backgroundSize: "50px 50px",
           }}
         />
       </div>
@@ -82,8 +83,8 @@ export function Hero() {
           <p
             className={`text-2xl sm:text-3xl md:text-4xl font-light text-ivory-200 tracking-wide transition-all duration-700 ${
               taglineVisible
-                ? 'opacity-100 translate-y-0'
-                : 'opacity-0 translate-y-8'
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-8"
             }`}
           >
             Automate Anything.
@@ -94,8 +95,8 @@ export function Hero() {
           <p
             className={`text-lg text-ivory-400 max-w-xl mx-auto transition-all duration-700 delay-100 ${
               subtitleVisible
-                ? 'opacity-100 translate-y-0'
-                : 'opacity-0 translate-y-8'
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-8"
             }`}
           >
             We build AI systems that eliminate repetitive work and scale operations.
@@ -103,13 +104,15 @@ export function Hero() {
         </div>
 
         <div className="opacity-0 animate-fade-in-up animation-delay-600">
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-3 btn-primary text-lg"
-          >
-            <span>Request Automation</span>
-            <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-          </a>
+          <LaunchDemoModal>
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-3 btn-primary text-lg"
+            >
+              <span>Request Automation</span>
+              <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+          </LaunchDemoModal>
         </div>
 
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in animation-delay-800">

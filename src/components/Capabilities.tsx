@@ -1,27 +1,28 @@
-import { useRef, useState } from 'react';
-import { useInView } from '../hooks/useInView';
-import { Bot, Workflow, Database, Zap } from 'lucide-react';
+import { useRef, useState } from "react";
+import { useInView } from "../hooks/useInView";
+import { Bot, Workflow, Database, Zap } from "lucide-react";
+import { BuildStrip } from "./BuildStrip";
 
 const capabilities = [
   {
     icon: Bot,
-    title: 'Intelligent Agents',
-    description: 'Autonomous AI systems that handle complex workflows end-to-end.',
+    title: "Intelligent Agents",
+    description: "Autonomous AI systems that handle complex workflows end-to-end.",
   },
   {
     icon: Workflow,
-    title: 'Process Automation',
-    description: 'Transform manual operations into self-running pipelines.',
+    title: "Process Automation",
+    description: "Transform manual operations into self-running pipelines.",
   },
   {
     icon: Database,
-    title: 'Data Integration',
-    description: 'Connect and synchronize data across all your platforms.',
+    title: "Data Integration",
+    description: "Connect and synchronize data across all your platforms.",
   },
   {
     icon: Zap,
-    title: 'Custom AI Tools',
-    description: 'Purpose-built solutions tailored to your specific needs.',
+    title: "Custom AI Tools",
+    description: "Purpose-built solutions tailored to your specific needs.",
   },
 ];
 
@@ -55,8 +56,8 @@ function CapabilityCard({ capability, index, isVisible }: CardProps) {
       onMouseLeave={() => setIsHovered(false)}
       className={`relative glass-panel-hover p-8 cursor-default transition-all duration-700 ${
         isVisible
-          ? 'opacity-100 translate-y-0'
-          : 'opacity-0 translate-y-12'
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-12"
       }`}
       style={{
         transitionDelay: `${index * 100}ms`,
@@ -86,7 +87,7 @@ function CapabilityCard({ capability, index, isVisible }: CardProps) {
 
       <div
         className={`absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent transition-opacity duration-500 ${
-          isHovered ? 'opacity-100' : 'opacity-0'
+          isHovered ? "opacity-100" : "opacity-0"
         }`}
       />
     </div>
@@ -108,25 +109,28 @@ export function Capabilities() {
         <div className="text-center mb-20">
           <span
             className={`inline-block text-accent text-sm font-medium tracking-widest uppercase mb-4 transition-all duration-700 ${
-              isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
             Capabilities
           </span>
           <h2
             className={`text-4xl md:text-5xl font-bold text-gradient mb-6 transition-all duration-700 delay-100 ${
-              isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
             What We Build
           </h2>
           <p
             className={`text-lg text-ivory-400 max-w-2xl mx-auto transition-all duration-700 delay-200 ${
-              isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
             End-to-end automation solutions powered by cutting-edge AI.
           </p>
+          <div className="mt-8 max-w-4xl mx-auto">
+            <BuildStrip />
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
